@@ -5,6 +5,7 @@
 //  When user clicks submit, the page reloads with POST data
 // ============================================================
 
+include 'auth.php';
 include 'db.php';
 
 // Variables to hold messages and keep form data on error
@@ -98,7 +99,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <div class="nav-links">
         <a href="index.php">Home</a>
         <a href="projects.php">Projects</a>
-        <a href="upload.php" class="btn-upload active">+ Upload</a>
+        <?php if (isLoggedIn()): ?>
+            <a href="upload.php" class="btn-upload active">+ Upload</a>
+            <span style="color: rgba(255,255,255,0.3);">|</span>
+            <a href="dashboard.php">Dashboard</a>
+            <a href="logout.php" style="color: #ef4444;">Logout</a>
+        <?php else: ?>
+            <a href="upload.php" class="btn-upload active">+ Upload</a>
+            <span style="color: rgba(255,255,255,0.3);">|</span>
+            <a href="login.php">Login</a>
+            <a href="signup.php" style="color: var(--amber);">Sign Up</a>
+        <?php endif; ?>
     </div>
 </nav>
 

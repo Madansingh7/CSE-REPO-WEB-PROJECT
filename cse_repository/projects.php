@@ -4,6 +4,7 @@
 //  Shows all projects from database with search and filter
 // ============================================================
 
+include 'auth.php'; // Session management
 include 'db.php'; // Connect to database
 
 // --- Fetch all DISTINCT categories for the filter dropdown ---
@@ -31,7 +32,17 @@ $totalProjects = mysqli_num_rows($projectResult);
     <div class="nav-links">
         <a href="index.php">Home</a>
         <a href="projects.php" class="active">Projects</a>
-        <a href="upload.php" class="btn-upload">+ Upload</a>
+        <?php if (isLoggedIn()): ?>
+            <a href="upload.php" class="btn-upload">+ Upload</a>
+            <span style="color: rgba(255,255,255,0.3);">|</span>
+            <a href="dashboard.php">Dashboard</a>
+            <a href="logout.php" style="color: #ef4444;">Logout</a>
+        <?php else: ?>
+            <a href="upload.php" class="btn-upload">+ Upload</a>
+            <span style="color: rgba(255,255,255,0.3);">|</span>
+            <a href="login.php">Login</a>
+            <a href="signup.php" style="color: var(--amber);">Sign Up</a>
+        <?php endif; ?>
     </div>
 </nav>
 

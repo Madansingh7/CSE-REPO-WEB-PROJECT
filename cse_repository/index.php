@@ -4,6 +4,7 @@
 //  Shows hero section, stats, and recent projects from database
 // ============================================================
 
+include 'auth.php'; // Session management
 include 'db.php'; // Connect to the database
 
 // --- Fetch total project count ---
@@ -45,7 +46,17 @@ $recentResult = mysqli_query($conn, $recentQuery);
     <div class="nav-links">
         <a href="index.php" class="active">Home</a>
         <a href="projects.php">Projects</a>
-        <a href="upload.php" class="btn-upload">+ Upload</a>
+        <?php if (isLoggedIn()): ?>
+            <a href="upload.php" class="btn-upload">+ Upload</a>
+            <span style="color: rgba(255,255,255,0.3);">|</span>
+            <a href="dashboard.php">Dashboard</a>
+            <a href="logout.php" style="color: #ef4444;">Logout</a>
+        <?php else: ?>
+            <a href="upload.php" class="btn-upload">+ Upload</a>
+            <span style="color: rgba(255,255,255,0.3);">|</span>
+            <a href="login.php">Login</a>
+            <a href="signup.php" style="color: var(--amber);">Sign Up</a>
+        <?php endif; ?>
     </div>
 </nav>
 
@@ -93,6 +104,14 @@ $recentResult = mysqli_query($conn, $recentQuery);
 
 <!-- ======================== RECENT PROJECTS ======================== -->
 <div class="section">
+
+    <!-- Show logout success message if redirected from logout.php -->
+    <?php if (isset($_GET['logged_out'])): ?>
+        <div class="alert alert-success">
+            ✅ You have been logged out successfully!
+        </div>
+    <?php endif; ?>
+
     <div class="section-header">
         <div>
             <h2 class="section-title">Recent Projects</h2>

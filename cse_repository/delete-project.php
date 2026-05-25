@@ -35,7 +35,7 @@ $id = (int)$_POST['id']; // Convert to integer for safety
 $redirect = $_POST['redirect'] ?? 'projects.php';
 
 // Safety: only allow redirect to our own pages
-$allowedRedirects = ['projects.php', 'index.php'];
+$allowedRedirects = ['projects.php', 'index.php', 'dashboard.php'];
 if (!in_array($redirect, $allowedRedirects)) {
     $redirect = 'projects.php';
 }

@@ -5,6 +5,7 @@
 //  URL example: project-detail.php?id=3
 // ============================================================
 
+include 'auth.php';
 include 'db.php';
 
 // --- Step 1: Get the project ID from the URL ---
@@ -48,7 +49,17 @@ $project = mysqli_fetch_assoc($result);
     <div class="nav-links">
         <a href="index.php">Home</a>
         <a href="projects.php">Projects</a>
-        <a href="upload.php" class="btn-upload">+ Upload</a>
+        <?php if (isLoggedIn()): ?>
+            <a href="upload.php" class="btn-upload">+ Upload</a>
+            <span style="color: rgba(255,255,255,0.3);">|</span>
+            <a href="dashboard.php">Dashboard</a>
+            <a href="logout.php" style="color: #ef4444;">Logout</a>
+        <?php else: ?>
+            <a href="upload.php" class="btn-upload">+ Upload</a>
+            <span style="color: rgba(255,255,255,0.3);">|</span>
+            <a href="login.php">Login</a>
+            <a href="signup.php" style="color: var(--amber);">Sign Up</a>
+        <?php endif; ?>
     </div>
 </nav>
 
