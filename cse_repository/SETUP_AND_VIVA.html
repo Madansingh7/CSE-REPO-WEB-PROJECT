@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CSE Repository - Setup Guide & Viva Q&A</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500;600&family=DM+Mono&display=swap');
+  :root {
+    --navy: #0f1f3d; --amber: #f5a623; --off: #f4f6fb;
+    --border: #dde3f0; --text: #1a2540; --mid: #4a5568;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--off); color: var(--text); line-height: 1.7; }
+  .page { max-width: 900px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
+  h1 { font-family: 'Syne', sans-serif; font-size: 2.5rem; font-weight: 800; color: var(--navy); margin-bottom: 0.5rem; }
+  h1 span { color: var(--amber); }
+  .subtitle { color: var(--mid); font-size: 1rem; margin-bottom: 3rem; }
+  h2 { font-family: 'Syne', sans-serif; font-size: 1.4rem; font-weight: 800; color: var(--navy); margin: 2.5rem 0 1rem;
+       padding-bottom: 0.5rem; border-bottom: 3px solid var(--amber); display: inline-block; }
+  h3 { font-size: 1rem; font-weight: 700; color: var(--navy); margin: 1.5rem 0 0.5rem; }
+  p, li { color: var(--mid); font-size: 0.95rem; margin-bottom: 0.6rem; }
+  ol, ul { padding-left: 1.5rem; }
+  code, pre { font-family: 'DM Mono', monospace; }
+  pre {
+    background: var(--navy); color: #e2e8f0; padding: 1.2rem 1.5rem;
+    border-radius: 8px; overflow-x: auto; font-size: 0.85rem; margin: 1rem 0;
+    border-left: 4px solid var(--amber);
+  }
+  .step-box {
+    background: white; border: 1px solid var(--border); border-radius: 10px;
+    padding: 1.5rem; margin: 1rem 0; box-shadow: 0 2px 12px rgba(15,31,61,0.06);
+  }
+  .step-box .step-num {
+    display: inline-block; background: var(--amber); color: var(--navy);
+    font-weight: 800; font-size: 0.8rem; padding: 3px 12px; border-radius: 100px;
+    margin-bottom: 0.7rem; letter-spacing: 0.5px;
+  }
+  .step-box h3 { margin: 0 0 0.7rem; font-size: 1.05rem; }
+  .qa-item {
+    background: white; border: 1px solid var(--border); border-radius: 10px;
+    padding: 1.4rem; margin: 1rem 0; box-shadow: 0 2px 12px rgba(15,31,61,0.06);
+  }
+  .question {
+    font-weight: 700; color: var(--navy); font-size: 0.97rem;
+    padding: 0.5rem 1rem; background: rgba(245,166,35,0.1);
+    border-left: 3px solid var(--amber); border-radius: 4px;
+    margin-bottom: 0.8rem;
+  }
+  .answer { color: var(--mid); font-size: 0.92rem; }
+  .file-tree {
+    background: var(--navy); color: #a8d8a8; padding: 1.2rem 1.5rem;
+    border-radius: 8px; font-family: 'DM Mono', monospace; font-size: 0.88rem;
+    line-height: 2; margin: 1rem 0;
+  }
+  .file-tree .comment { color: #6b8cba; }
+  .badge { display:inline-block; background:rgba(245,166,35,0.15); color:#b36800;
+           font-size:0.75rem; font-weight:700; padding:2px 10px; border-radius:100px;
+           margin-left:8px; vertical-align:middle; }
+  .tip { background: #fffbeb; border: 1px solid #fde68a; padding: 1rem 1.2rem;
+         border-radius: 8px; font-size: 0.88rem; color: #92400e; margin: 1rem 0; }
+  .tip strong { color: #78350f; }
+  table { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: 0.9rem; }
+  th { background: var(--navy); color: white; padding: 10px 14px; text-align: left; font-size: 0.85rem; }
+  td { padding: 10px 14px; border-bottom: 1px solid var(--border); color: var(--mid); }
+  tr:nth-child(even) td { background: var(--off); }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <h1>CSE Project <span>Repository</span></h1>
+  <p class="subtitle">Complete Setup Guide + Viva Questions & Answers · PHP + MySQL + WAMP</p>
+
+  <!-- ====================================================
+       PART 1: FILE STRUCTURE
+       ==================================================== -->
+  <h2>📁 File Structure</h2>
+  <div class="file-tree">
+cse_repository/               <span class="comment">&lt;-- your project folder</span>
+│
+├── index.php                 <span class="comment">&lt;-- Home page (recent projects)</span>
+├── projects.php              <span class="comment">&lt;-- All projects + search + filter</span>
+├── project-detail.php        <span class="comment">&lt;-- Single project view</span>
+├── upload.php                <span class="comment">&lt;-- Upload new project form</span>
+├── edit-project.php          <span class="comment">&lt;-- Edit existing project</span>
+├── delete-project.php        <span class="comment">&lt;-- Delete handler (no HTML)</span>
+├── db.php                    <span class="comment">&lt;-- Database connection</span>
+├── style.css                 <span class="comment">&lt;-- All styles</span>
+├── script.js                 <span class="comment">&lt;-- JS validation + search</span>
+└── database.sql              <span class="comment">&lt;-- SQL to create DB + table</span>
+  </div>
+
+  <!-- ====================================================
+       PART 2: WAMP SETUP
+       ==================================================== -->
+  <h2>🖥️ WAMP Server Setup (Step-by-Step)</h2>
+
+  <div class="step-box">
+    <div class="step-num">STEP 1</div>
+    <h3>Download & Install WAMP</h3>
+    <ol>
+      <li>Go to <strong>wampserver.com</strong> and download the installer for your OS (32-bit or 64-bit).</li>
+      <li>Run the installer as <strong>Administrator</strong>.</li>
+      <li>Follow the wizard — use all default settings.</li>
+      <li>WAMP installs <strong>Apache</strong> (web server), <strong>MySQL</strong> (database), and <strong>PHP</strong> together.</li>
+    </ol>
+  </div>
+
+  <div class="step-box">
+    <div class="step-num">STEP 2</div>
+    <h3>Start WAMP Server</h3>
+    <ol>
+      <li>Open WAMP from your desktop or Start menu.</li>
+      <li>The WAMP icon appears in the <strong>system tray</strong> (bottom-right of screen).</li>
+      <li>Wait for the icon to turn <strong>GREEN</strong> — this means Apache and MySQL are both running.</li>
+      <li>If the icon is orange, click it → hover "Apache" → click "Start/Resume Service".</li>
+    </ol>
+    <div class="tip">
+      <strong>💡 Tip:</strong> If port 80 is blocked (icon stays orange), another program (like Skype or IIS) may be using it.
+      Right-click WAMP tray icon → Apache → "httpd.conf" → change "Listen 80" to "Listen 8080".
+      Then access your project at <code>http://localhost:8080/cse_repository/</code>
+    </div>
+  </div>
+
+  <div class="step-box">
+    <div class="step-num">STEP 3</div>
+    <h3>Place Project in www Directory</h3>
+    <ol>
+      <li>Open <strong>File Explorer</strong>.</li>
+      <li>Navigate to: <code>C:\wamp64\www\</code> (or <code>C:\wamp\www\</code> on 32-bit)</li>
+      <li>Copy your entire <strong>cse_repository</strong> folder into this <code>www</code> directory.</li>
+      <li>Final path should be: <code>C:\wamp64\www\cse_repository\</code></li>
+    </ol>
+    <div class="tip">
+      <strong>📌 Why www?</strong> WAMP's Apache server serves files from the <code>www</code> folder.
+      Everything inside <code>www</code> becomes accessible at <code>http://localhost/</code>.
+    </div>
+  </div>
+
+  <div class="step-box">
+    <div class="step-num">STEP 4</div>
+    <h3>Create the Database in phpMyAdmin</h3>
+    <ol>
+      <li>Open your browser and go to: <strong>http://localhost/phpmyadmin</strong></li>
+      <li>Login: Username = <code>root</code>, Password = <em>leave blank</em> (default)</li>
+      <li>Click the <strong>"SQL"</strong> tab at the top.</li>
+      <li>Copy the entire contents of <code>database.sql</code> and paste it into the SQL box.</li>
+      <li>Click <strong>"Go"</strong> — this creates the database, table, and sample data.</li>
+    </ol>
+    <p><strong>Alternative — Import the SQL file:</strong></p>
+    <ol>
+      <li>In phpMyAdmin, click <strong>"New"</strong> in the left sidebar.</li>
+      <li>Type <code>cse_repository</code> as the database name → click <strong>Create</strong>.</li>
+      <li>Click on <code>cse_repository</code> in the sidebar.</li>
+      <li>Click the <strong>"Import"</strong> tab → "Choose File" → select <code>database.sql</code> → click <strong>Go</strong>.</li>
+    </ol>
+  </div>
+
+  <div class="step-box">
+    <div class="step-num">STEP 5</div>
+    <h3>Run the Project</h3>
+    <ol>
+      <li>Make sure WAMP icon is <strong>GREEN</strong>.</li>
+      <li>Open your browser.</li>
+      <li>Type: <strong>http://localhost/cse_repository/</strong></li>
+      <li>The home page should load with sample projects!</li>
+    </ol>
+    <div class="tip">
+      <strong>✅ Quick Checklist:</strong> WAMP is green ✓ · Folder is in www ✓ · Database created ✓ · db.php credentials match ✓
+    </div>
+  </div>
+
+  <!-- ====================================================
+       PART 3: DATABASE TABLE STRUCTURE
+       ==================================================== -->
+  <h2>🗄️ Database Table: projects</h2>
+  <table>
+    <tr>
+      <th>Column</th><th>Type</th><th>Description</th>
+    </tr>
+    <tr><td>id</td><td>INT, AUTO_INCREMENT, PRIMARY KEY</td><td>Unique identifier for each project</td></tr>
+    <tr><td>title</td><td>VARCHAR(255), NOT NULL</td><td>Name of the project</td></tr>
+    <tr><td>student_name</td><td>VARCHAR(100), NOT NULL</td><td>Name of the student</td></tr>
+    <tr><td>year</td><td>INT, NOT NULL</td><td>Year the project was made</td></tr>
+    <tr><td>category</td><td>VARCHAR(100), NOT NULL</td><td>Category (Web Dev, AI, etc.)</td></tr>
+    <tr><td>technology</td><td>VARCHAR(255), NOT NULL</td><td>Technologies used (comma separated)</td></tr>
+    <tr><td>description</td><td>TEXT, NOT NULL</td><td>Full project description</td></tr>
+    <tr><td>github_link</td><td>VARCHAR(255), DEFAULT ''</td><td>GitHub URL (optional)</td></tr>
+    <tr><td>created_at</td><td>TIMESTAMP, DEFAULT CURRENT_TIMESTAMP</td><td>Auto-recorded upload date</td></tr>
+  </table>
+
+  <!-- ====================================================
+       PART 4: CRUD OPERATIONS SUMMARY
+       ==================================================== -->
+  <h2>⚙️ CRUD Operations Summary</h2>
+  <table>
+    <tr><th>Operation</th><th>SQL Query</th><th>PHP File</th></tr>
+    <tr>
+      <td><strong>CREATE</strong> (Upload)</td>
+      <td><code>INSERT INTO projects (...) VALUES (...)</code></td>
+      <td>upload.php</td>
+    </tr>
+    <tr>
+      <td><strong>READ</strong> (View All)</td>
+      <td><code>SELECT * FROM projects ORDER BY created_at DESC</code></td>
+      <td>projects.php, index.php</td>
+    </tr>
+    <tr>
+      <td><strong>READ</strong> (View One)</td>
+      <td><code>SELECT * FROM projects WHERE id = $id</code></td>
+      <td>project-detail.php</td>
+    </tr>
+    <tr>
+      <td><strong>UPDATE</strong> (Edit)</td>
+      <td><code>UPDATE projects SET ... WHERE id = $id</code></td>
+      <td>edit-project.php</td>
+    </tr>
+    <tr>
+      <td><strong>DELETE</strong></td>
+      <td><code>DELETE FROM projects WHERE id = $id</code></td>
+      <td>delete-project.php</td>
+    </tr>
+  </table>
+
+  <!-- ====================================================
+       PART 5: VIVA Q&A
+       ==================================================== -->
+  <h2>🎓 Viva Questions & Answers</h2>
+
+  <!-- === SECTION A: PHP & MySQL Basics === -->
+  <h3>Section A — PHP & MySQL Basics</h3>
+
+  <div class="qa-item">
+    <div class="question">Q1. What is PHP? Why did you use it in this project?</div>
+    <div class="answer">
+      PHP (Hypertext Preprocessor) is a server-side scripting language used to build dynamic web pages.
+      We used it because PHP can connect to MySQL databases, process form data, and generate HTML dynamically —
+      all without using complex frameworks. It runs on the WAMP server's Apache, making it perfect for beginner projects.
+    </div>
+  </div>
+
+  <div class="qa-item">
+    <div class="question">Q2. What is WAMP Server? What does each letter stand for?</div>
+    <div class="answer">
+      WAMP stands for: <strong>W</strong>indows, <strong>A</strong>pache, <strong>M</strong>ySQL, <strong>P</strong>HP.
+      It is a local development environment that installs all three tools together on Windows. Apache is the web server,
+      MySQL is the database, and PHP is the scripting language. WAMP lets us run PHP websites on our own computer
+      without needing to buy hosting.
+    </div>
+  </div>
+
+  <div class="qa-item">
+    <div class="question">Q3. How do you connect PHP to MySQL?</div>
+    <div class="answer">
+      We use the <code>mysqli_connect()</code> function:
+      <pre>$conn = mysqli_connect("localhost", "root", "", "cse_repository");</pre>
+      The four parameters are: host, username, password, and database name. We then check
+      <code>if (!$conn)</code> and call <code>mysqli_connect_error()</code> to show the error if it fails.
+      We put this in a separate file called <code>db.php</code> and include it in every PHP page.
+    </div>
+  </div>
+
+  <div class="qa-item">
+    <div class="question">Q4. What is the difference between GET and POST methods?</div>
+    <div class="answer">
+      <strong>GET</strong> sends data in the URL (visible to the user), e.g., <code>project-detail.php?id=3</code>.
+      It is used for reading data. <strong>POST</strong> sends data in the request body (not visible in URL).
+      It is used for submitting forms, inserting, updating, or deleting data. In our project, we use GET to pass
+      the project ID in URLs, and POST for all form submissions (upload, edit, delete).
+    </div>
+  </div>
+
+  <div class="qa-item">
+    <div class="question">Q5. What is AUTO_INCREMENT in MySQL?</div>
+    <div class="answer">
+      AUTO_INCREMENT automatically assigns a unique increasing number to a column each time a new row is inserted.
+      We use it for the <code>id</code> column so every project gets a unique ID (1, 2, 3, ...) without us
+      manually typing it. It is always used with PRIMARY KEY.
+    </div>
+  </div>
+
+  <div class="qa-item">
+    <div class="question">Q6. What is PRIMARY KEY?</div>
+    <div class="answer">
+      A PRIMARY KEY is a column (or set of columns) that uniquely identifies each row in a table. No two rows
+      can have the same PRIMARY KEY value, and it cannot be NULL. In our project, <code>id</code> is the PRIMARY KEY
+      of the projects table. We use it to fetch, update, or delete a specific project.
+    </div>
+  </div>
+
+  <div class="qa-item">
+    <div class="question">Q7. What does mysqli_fetch_assoc() do?</div>
+    <div class="answer">
+      <code>mysqli_fetch_assoc()</code> fetches one row from a query result as an associative array. This means
+      you can access column values by their column name, e.g., <code>$row['title']</code> or <code>$row['student_name']</code>.
+      We use it inside a while loop to go through all results one by one:
+      <pre>while ($row = mysqli_fetch_assoc($result)) { echo $row['title']; }</pre>
+    </div>
+  </div>
+
+  <div class="qa-item">
+    <div class="question">Q8. What is SQL injection? How did you prevent it?</div>
+    <div class="answer">
+      SQL injection is a security attack where a hacker enters malicious SQL code into a form field, which gets
+      executed in the database. For example, entering <code>' OR 1=1 --</code> in a login form could bypass authentication.
+      In our project, we prevent it using <code>mysqli_real_escape_string($conn, $input)</code> which escapes
+      dangerous characters like quotes before inserting them into a query. We also cast the ID to integer
+      using <code>(int)$_GET['id']</code>.
+    </div>
+  </div>
+
+  <div class="qa-item">
+    <div class="question">Q9. What does htmlspecialchars() do?</div>
+    <div class="answer">
+      <code>htmlspecialchars()</code> converts special HTML characters to their safe equivalents so they display
+      as text and cannot be executed as HTML or JavaScript. For example, <code>&lt;</code> becomes <code>&amp;lt;</code>
+      and <code>&gt;</code> becomes <code>&amp;gt;</code>. We use it when displaying data from the database to prevent
+      XSS (Cross-Site Scripting) attacks.
+    </div>
+  </div>
+
+  <div class="qa-item">
+    <div class="question">Q10. Explain the INSERT query used in your project.</div>
+    <div class="answer">
+      <pre>INSERT INTO projects 
+  (title, student_name, year, category, technology, description, github_link)
+VALUES 
+  ('$title', '$student_name', $year, '$category', '$technology', '$description', '$github_link')</pre>
+      <strong>INSERT INTO</strong> specifies the table name. The column names in parentheses tell MySQL which columns
+      to fill. <strong>VALUES</strong> contains the actual data. We do not include <code>id</code> or <code>created_at</code>
+      because AUTO_INCREMENT and DEFAULT CURRENT_TIMESTAMP fill those automatically.
+    </div>
+  </div>
+
+  <div class="qa-item">
+    <div class="question">Q11. Explain the UPDATE query used in your project.</div>
+    <div class="answer">
+      <pre>UPDATE projects SET
+  title = '$title',
+  student_name = '$student_name',
+  year = $year
+WHERE id = $id</pre>
+      <strong>UPDATE</strong> modifies existing records. <strong>SET</strong> specifies which columns to change and their
+      new values. <strong>WHERE id = $id</strong> is critical — it restricts the update to only the specific project.
+      Without WHERE, ALL rows in the table would be updated!
+    </div>
+  </div>
+
+  <div class="qa-item">
+    <div class="question">Q12. Explain the DELETE query used in your project.</div>
+    <div class="answer">
+      <pre>DELETE FROM projects WHERE id = $id</pre>
+      <strong>DELETE FROM</strong> removes rows from a table. <strong>WHERE id = $id</strong> ensures only the
+      specific project with that ID is deleted. Without the WHERE clause, the entire table would be emptied!
+      We also use <code>mysqli_affected_rows()</code> to confirm that at least one row was actually deleted.
+    </div>
+  </div>
+
+  <!-- === SECTION B: JavaScript === -->
+  <h3>Section B — JavaScript Validation</h3>
+
+  <div class="qa-item">
+    <div class="question">Q13. Why do you need JavaScript validation if PHP also validates?</div>
+    <div class="answer">
+      JavaScript validation happens on the <strong>client side</strong> (in the browser, before the form is sent).
+      This gives instant feedback to the user without a page reload — it's faster and better UX.
+      PHP validation happens on the <strong>server side</strong> (after the form is submitted).
+      We need both because JavaScript can be disabled by the user, so PHP validation is the safety net.
+      The rule is: "Never trust user input — always validate on the server."
+    </div>
+  </div>
+
+  <div class="qa-item">
+    <div class="question">Q14. How does your JavaScript search and filter work?</div>
+    <div class="answer">
+      All projects are loaded into the page as HTML cards. When the user types in the search box or selects
+      a category, an event listener calls the <code>filterProjects()</code> function. This function reads the
+      search term and selected category, then loops through every <code>.project-card</code> element and checks
+      if its content matches. If it matches, the card stays visible (<code>display: flex</code>); if not,
+      it is hidden (<code>display: none</code>). This happens instantly without any database queries.
+    </div>
+  </div>
+
+  <div class="qa-item">
+    <div class="question">Q15. What is confirm() in JavaScript and where did you use it?</div>
+    <div class="answer">
+      <code>confirm()</code> is a built-in JavaScript function that shows a popup dialog with a message and
+      OK / Cancel buttons. It returns <code>true</code> if the user clicks OK, and <code>false</code> if they click
+      Cancel. We use it in the delete button's <code>onsubmit</code> attribute:
+      <code>onsubmit="return confirmDelete('Project Name')"</code>
+      If the user cancels, <code>false</code> is returned and the form is NOT submitted, preventing accidental deletion.
+    </div>
+  </div>
+
+  <!-- === SECTION C: Project Architecture === -->
+  <h3>Section C — Project Architecture & Design</h3>
+
+  <div class="qa-item">
+    <div class="question">Q16. What is CRUD? Give examples from your project.</div>
+    <div class="answer">
+      CRUD stands for <strong>Create, Read, Update, Delete</strong> — the four basic database operations:
+      <br>• <strong>Create:</strong> upload.php → INSERT query → adds a new project
+      <br>• <strong>Read:</strong> index.php / projects.php / project-detail.php → SELECT query → fetches projects
+      <br>• <strong>Update:</strong> edit-project.php → UPDATE query → modifies a project
+      <br>• <strong>Delete:</strong> delete-project.php → DELETE query → removes a project
+    </div>
+  </div>
+
+  <div class="qa-item">
+    <div class="question">Q17. Why did you create a separate db.php file?</div>
+    <div class="answer">
+      We separated database credentials into <code>db.php</code> to follow the DRY principle
+      (Don't Repeat Yourself). Instead of writing <code>mysqli_connect()</code> in every file,
+      we write it once and use <code>include 'db.php';</code> in each PHP file that needs it.
+      If we ever change the database name or password, we only need to update one file.
+    </div>
+  </div>
+
+  <div class="qa-item">
+    <div class="question">Q18. What is the purpose of htmlspecialchars() vs mysqli_real_escape_string()?</div>
+    <div class="answer">
+      <strong>mysqli_real_escape_string()</strong> — used when inserting data INTO the database. It escapes
+      SQL special characters (like quotes) to prevent SQL injection.
+      <br><br>
+      <strong>htmlspecialchars()</strong> — used when outputting data FROM the database to HTML. It prevents
+      XSS attacks by converting HTML characters to safe entities so malicious scripts cannot run.
+      <br><br>
+      Both are needed: one protects the database, the other protects the browser.
+    </div>
+  </div>
+
+  <div class="qa-item">
+    <div class="question">Q19. How does project-detail.php know which project to show?</div>
+    <div class="answer">
+      The project ID is passed in the URL as a GET parameter: <code>project-detail.php?id=3</code>.
+      PHP reads it using <code>$_GET['id']</code>. We first validate that it exists and is numeric using
+      <code>isset()</code> and <code>is_numeric()</code>, then cast it to integer with <code>(int)</code>
+      to prevent injection. Then we run <code>SELECT * FROM projects WHERE id = $id</code> to fetch that
+      specific project's data.
+    </div>
+  </div>
+
+  <div class="qa-item">
+    <div class="question">Q20. What is the difference between include and require in PHP?</div>
+    <div class="answer">
+      Both <code>include</code> and <code>require</code> insert the contents of one PHP file into another.
+      The difference is in error handling: if the file is not found, <code>include</code> gives a <strong>warning</strong>
+      and the script continues running, while <code>require</code> gives a <strong>fatal error</strong> and stops
+      the script. We use <code>include 'db.php'</code> — since without the database connection, the page
+      will fail anyway, either <code>include</code> or <code>require</code> would work here.
+    </div>
+  </div>
+
+  <div class="qa-item">
+    <div class="question">Q21. What is the purpose of the hidden input field in the edit and delete forms?</div>
+    <div class="answer">
+      Hidden input fields (<code>&lt;input type="hidden"&gt;</code>) send data with the form that the user
+      cannot see or change in the form UI. In our project:
+      <br>• In edit-project.php: <code>&lt;input type="hidden" name="id" value="3"&gt;</code> passes the
+      project ID to the POST handler so PHP knows which project to UPDATE.
+      <br>• In delete-project.php: <code>&lt;input type="hidden" name="redirect" value="projects.php"&gt;</code>
+      tells the delete handler where to redirect after deletion.
+    </div>
+  </div>
+
+  <div class="qa-item">
+    <div class="question">Q22. What is ORDER BY and LIMIT in SQL?</div>
+    <div class="answer">
+      <strong>ORDER BY</strong> sorts query results by a column. <code>ORDER BY created_at DESC</code> sorts
+      newest projects first (DESC = descending, Z→A or newest→oldest).
+      <code>ASC</code> would be ascending (oldest→newest).
+      <br><br>
+      <strong>LIMIT</strong> restricts how many rows are returned. <code>LIMIT 6</code> returns only the
+      first 6 rows. On the home page, we use <code>SELECT * FROM projects ORDER BY created_at DESC LIMIT 6</code>
+      to show only the 6 most recent projects.
+    </div>
+  </div>
+
+  <div class="qa-item">
+    <div class="question">Q23. How would you add a search feature using PHP + SQL instead of JavaScript?</div>
+    <div class="answer">
+      Instead of filtering with JavaScript, we could pass the search term via GET and use SQL LIKE:
+      <pre>$search = mysqli_real_escape_string($conn, $_GET['search']);
+$query = "SELECT * FROM projects 
+          WHERE title LIKE '%$search%' 
+          OR student_name LIKE '%$search%' 
+          OR technology LIKE '%$search%'";</pre>
+      The <code>%</code> is a wildcard — it matches any characters before or after the search term.
+      Our current JavaScript approach is faster because it doesn't need a server request.
+    </div>
+  </div>
+
+  <div class="qa-item">
+    <div class="question">Q24. What improvements would you make if you had more time?</div>
+    <div class="answer">
+      1. <strong>Prepared Statements</strong> — use <code>mysqli_prepare()</code> for better SQL injection protection.
+      <br>2. <strong>User Authentication</strong> — login system so only the project owner can edit/delete their project.
+      <br>3. <strong>File Upload</strong> — allow students to upload a project report PDF or screenshot.
+      <br>4. <strong>Pagination</strong> — show 10 projects per page instead of all at once.
+      <br>5. <strong>Search on Server Side</strong> — SQL LIKE search for better performance with large data.
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
