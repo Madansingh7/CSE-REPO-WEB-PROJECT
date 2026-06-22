@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Submit a new project to the CSE Student Project Repository.">
+    <title>Upload Project — CSE Repository</title>
+    <!-- Link to the external stylesheet -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Unique ID to help js/app.js know we are on the Upload page -->
+    <div id="upload-page"></div>
+
+    <!-- ==========================================
+         HEADER & NAVIGATION
+         ========================================== -->
+    <header>
+        <div class="header-inner">
+            <a class="site-title" href="index.html"><span>CSE</span> Project Repo</a>
+            <nav>
+                <a href="index.html">Home</a>
+                <a href="projects.html">All Projects</a>
+                <a href="upload.html" class="active">Upload Project</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- ==========================================
+         MAIN CONTENT
+         ========================================== -->
+    <main class="container">
+        <h1 class="page-title">Upload Your Project</h1>
+        <p class="page-subtitle">Share your work with the department. Fill in the details below.</p>
+
+        <!-- Dynamic Success/Error message alert box, controlled by JS -->
+        <div class="alert" id="alert-box" style="display: none;"></div>
+
+        <!-- ==========================================
+             UPLOAD FORM
+             ========================================== -->
+        <div class="form-card">
+            <!-- Form intercepts submit via JavaScript so we can store it in localStorage -->
+            <form id="project-upload-form">
+
+                <!-- Project Title -->
+                <div class="form-group">
+                    <label for="title">Project Title <span style="color:red">*</span></label>
+                    <input
+                        type="text"
+                        id="title"
+                        placeholder="e.g., Smart Attendance System"
+                        required
+                    >
+                </div>
+
+                <!-- Student Name -->
+                <div class="form-group">
+                    <label for="student_name">Student Name <span style="color:red">*</span></label>
+                    <input
+                        type="text"
+                        id="student_name"
+                        placeholder="e.g., Arjun Sharma"
+                        required
+                    >
+                </div>
+
+                <!-- Year and Category (Two columns) -->
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+                    <!-- Year -->
+                    <div class="form-group">
+                        <label for="year">Year <span style="color:red">*</span></label>
+                        <input
+                            type="number"
+                            id="year"
+                            placeholder="e.g., 2024"
+                            min="2000"
+                            max="2099"
+                            required
+                        >
+                    </div>
+
+                    <!-- Category dropdown -->
+                    <div class="form-group">
+                        <label for="category">Category <span style="color:red">*</span></label>
+                        <select id="category" required>
+                            <option value="">-- Select Category --</option>
+                            <option value="Web">Web</option>
+                            <option value="AI">AI / ML</option>
+                            <option value="IoT">IoT</option>
+                            <option value="App">App</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Technology Used -->
+                <div class="form-group">
+                    <label for="technology">
+                        Technology Used <span style="color:red">*</span>
+                        <span class="form-hint">(comma separated)</span>
+                    </label>
+                    <input
+                        type="text"
+                        id="technology"
+                        placeholder="e.g., Python, OpenCV, MySQL"
+                        required
+                    >
+                </div>
+
+                <!-- Project Description -->
+                <div class="form-group">
+                    <label for="description">Project Description <span style="color:red">*</span></label>
+                    <textarea
+                        id="description"
+                        placeholder="Explain what your project does, the problem it solves, and how it works..."
+                        required
+                    ></textarea>
+                </div>
+
+                <!-- GitHub Link (optional) -->
+                <div class="form-group">
+                    <label for="github_link">
+                        GitHub Link
+                        <span class="form-hint">(optional)</span>
+                    </label>
+                    <input
+                        type="url"
+                        id="github_link"
+                        placeholder="https://github.com/yourusername/project"
+                    >
+                </div>
+
+                <!-- Submit button -->
+                <button type="submit" class="btn-primary">
+                    Upload Project →
+                </button>
+
+            </form>
+        </div>
+
+    </main>
+
+    <!-- ==========================================
+         FOOTER
+         ========================================== -->
+    <footer>
+        <p><strong>CSE Project Repository</strong> &mdash; Computer Science Department &copy; 2026</p>
+    </footer>
+
+    <!-- Link to our JavaScript logic file -->
+    <script src="app.js"></script>
+</body>
+</html>

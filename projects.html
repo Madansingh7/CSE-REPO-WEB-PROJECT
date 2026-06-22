@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Browse all student projects from the CSE department - All Projects list.">
+    <title>All Projects — CSE Repository</title>
+    <!-- Link to the external stylesheet -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Unique ID to help js/app.js know we are on the Projects page -->
+    <div id="projects-page"></div>
+
+    <!-- ==========================================
+         HEADER & NAVIGATION
+         ========================================== -->
+    <header>
+        <div class="header-inner">
+            <a class="site-title" href="index.html"><span>CSE</span> Project Repo</a>
+            <nav>
+                <a href="index.html">Home</a>
+                <a href="projects.html" class="active">All Projects</a>
+                <a href="upload.html">Upload Project</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- ==========================================
+         MAIN CONTENT
+         ========================================== -->
+    <main class="container">
+        <h1 class="page-title">All Projects</h1>
+        <p class="page-subtitle">Browse all student projects from the CSE department.</p>
+
+        <!-- ==========================================
+             FILTER BAR
+             ========================================== -->
+        <div class="filter-bar">
+            <!-- Live search input — javascript filters cards in real time as the user types -->
+            <input
+                type="text"
+                id="search-input"
+                placeholder="Search projects by title, tech, or student..."
+                autocomplete="off"
+            >
+
+            <!-- Category dropdown filter — javascript filters card categories on change -->
+            <select id="category-filter">
+                <option value="all">All Categories</option>
+                <option value="web">Web</option>
+                <option value="ai">AI / ML</option>
+                <option value="iot">IoT</option>
+                <option value="app">App</option>
+            </select>
+
+            <!-- Result count indicator — updated dynamically by javascript -->
+            <span id="result-count">Showing 0 projects</span>
+        </div>
+
+        <!-- ==========================================
+             PROJECT CARDS GRID
+             ========================================== -->
+        <!-- This grid is dynamically populated with cards from localStorage via js/app.js -->
+        <div class="projects-grid" id="projects-grid">
+            <!-- Dynamic cards go here -->
+        </div>
+
+        <!-- No results message (displayed by Javascript if no project matches the filters) -->
+        <div class="no-results" id="no-results">
+            <p>No projects match your search.</p>
+            <small>Try different keywords or clear the search box.</small>
+        </div>
+
+    </main>
+
+    <!-- ==========================================
+         FOOTER
+         ========================================== -->
+    <footer>
+        <p><strong>CSE Project Repository</strong> &mdash; Computer Science Department &copy; 2026</p>
+    </footer>
+
+    <!-- Link to our JavaScript logic file -->
+    <script src="app.js"></script>
+</body>
+</html>
